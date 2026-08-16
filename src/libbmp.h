@@ -1,16 +1,16 @@
 #ifndef LIB_BMP
 #define LIB_BMP
 #include <stdint.h>
-typedef struct bmp_header
+typedef struct bmp_file_header
 {
     uint8_t header[2]; // "BM"
     uint32_t bmp_size;
     uint8_t reserved0[2]; // Can be zeroed
     uint8_t reserved1[2]; // Can be zeroed
     uint32_t offset;      // Offset to pixel data
-} bmp_header;
+} bmp_file_header;
 // For the moment, only BITMAPINFOHEADER
-typedef struct bmp_dib
+typedef struct bmp_info_header
 {
     uint32_t header_size; // 40
     int32_t bmp_width;
@@ -18,12 +18,12 @@ typedef struct bmp_dib
     uint16_t color_planes;    // 1
     uint16_t bmp_bpp;         // Powers of 2 or 24
     uint32_t bmp_compression; // Unsupported as of now, defaults to 0 (BI_RGB)
-    uint32_t bmp_rawsize;     // Size of the raw bitmap data
+    uint32_t bmp_rawsize;     // Size of the pixel array in bytes
     int32_t bmp_ppm_x;        // Horizontal pixels per metre
     int32_t bmp_ppm_y;        // Vertical ṕixels per metre
     uint32_t bmp_n_colors;    // Number of colors in the palette, or 0 for 2^n
     uint32_t bmp_imp_colors;  // Number of important colors used, or 0 when all are important. Generally ignored
-} bmp_dib;
+} bmp_info_header;
 typedef uint8_t *bmp_pixels1;
 typedef uint8_t *bmp_pixels2;
 typedef uint8_t *bmp_pixels4;
